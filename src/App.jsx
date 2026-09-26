@@ -9,15 +9,17 @@ import Contact from './Pages/Contact'
 import Cart from './Pages/Cart'
 import Favourites from './Pages/Favourites'
 import Auth from './Pages/Auth'
+import PageTitle from './Components/PageTittle'
 
 function App() {
     return (
-        <div className="min-h-screen w-full bg-red-200">
+        <div className="min-h-screen w-full bg-[#f9f9f4]">
+
+            <PageTitle/>
 
             <Navbar />
 
-            <main className="">
-
+            <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
@@ -27,7 +29,6 @@ function App() {
                     <Route path="/favourites" element={<Favourites />} />
                     <Route path="/auth" element={<Auth />} />
                 </Routes>
-
             </main>
 
         </div>

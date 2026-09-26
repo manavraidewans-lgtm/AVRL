@@ -1,7 +1,9 @@
+import Hero from "../Components/Home/Hero"
+
 function Home() {
     return (
-        <div className="pb-16 md:pt-16"> 
-            <h1>Home</h1>
+        <div className="pb-16"> 
+            <Hero/>
         </div>
     )
 }
