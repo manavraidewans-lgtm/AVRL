@@ -1,9 +1,9 @@
-function Home() {
+function Favourites() {
     return (
         <div className="pb-16 md:pt-16"> 
-            <h1>Home</h1>
+           <h1>Fav</h1>
         </div>
     )
 }
 
-export default Home
+export default Favourites
