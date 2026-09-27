@@ -1,6 +1,8 @@
 function Description({ Des, className = "" }) {
     return (
-        <p className={`text-xl w-[60%] text-[#495f54] font-semibold ${className}`}>
+        <p
+            className={`w-full text-sm font-semibold text-[#495f54] sm:text-base md:max-w-xl lg:text-xl ${className}`}
+        >
             {Des}
         </p>
     )

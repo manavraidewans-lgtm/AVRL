@@ -1,47 +1,38 @@
-import React from 'react'
 import BackgroundImage from "../../Assets/Little_More.avif"
-import TittleName from '../TittleName'
-import Tittle from '../Tittle'
-import Description from '../Description'
-import Button from '../Button'
+import Tittle from "../Tittle"
+import Description from "../Description"
+import Button from "../Button"
 
 const LittleMore = () => {
-  return (
+    return (
+        <section className="mt-5 flex w-full justify-center px-4 sm:px-6 md:mt-8">
+            <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl bg-[#e8efe6] md:h-[40vh] md:flex-row">
 
-        <div className="mt-4.5 flex h-[40vh] w-full items-center justify-center">
+                <div className="h-56 w-full sm:h-72 md:h-full md:w-[40%]">
+                    <img
+                        src={BackgroundImage}
+                        alt="Pic About"
+                        className="h-full w-full object-cover"
+                    />
+                </div>
 
-            <div className='h-[80%] w-[60%] flex items-center justify-between overflow-hidden rounded-3xl bg-green-200'>
+                <div className="flex w-full flex-col items-center justify-center gap-4 p-6 text-center sm:p-8 md:w-[60%]">
+                    <Tittle Heading="Style Made Simple" />
 
-                    <div className='h-full w-[35%] bg-red-200'>
-                        <img src={BackgroundImage} alt="Pic About" className='h-full w-full'/>
-                    </div>
+                    <Description
+                        Des="Everyday clothing designed for comfort, confidence, and effortless style."
+                    />
 
-                    <div className='h-full w-[75%] bg-[#e8efe6] flex flex-col justify-center items-center gap-4'>
-
-
-                        <Tittle
-                            Heading="Style Made Simple"
-                        />
-
-                        
-                        <Description
-                            Des="Everyday clothing designed for comfort, confidence, and effortless style."
-                            
-                        />
-                      
-
-                        <Button
-                            Name="Explore More"
-                            Link="/about"
-                        />
-
-                    </div>
+                    <Button
+                        Name="Explore More"
+                        Link="/about"
+                    />
+                </div>
 
             </div>
-            
-        </div>
-
-  )
+        </section>
+    )
 }
 
 export default LittleMore
+

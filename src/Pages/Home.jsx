@@ -1,27 +1,28 @@
 import Hero from "../Components/Home/Hero"
-import LittleMore from "../Components/Home/LittleMore"
-import NewArrivals from "../Components/Home/NewArrivals"
-import NewsLetter from "../Components/Home/NewsLetter"
-import Off from "../Components/Home/Off"
 import ShopByCategory from "../Components/Home/ShopByCategory"
+import Off from "../Components/Home/Off"
+import NewArrivals from "../Components/Home/NewArrivals"
+import LittleMore from "../Components/Home/LittleMore"
+import NewsLetter from "../Components/Home/NewsLetter"
+
 
 function Home() {
     return (
-        <div className="pb-16"> 
+        <main className="w-full overflow-x-hidden pb-10 sm:pb-12 lg:pb-16">
 
-            <Hero/>
+            <Hero />
 
-            <ShopByCategory/>
+            <ShopByCategory />
 
-            <Off/>
+            <Off />
 
-            <NewArrivals/>
+            <NewArrivals />
 
-            <LittleMore/>
+            <LittleMore />
 
-            <NewsLetter/>
-
-        </div>
+            <NewsLetter />
+            
+        </main>
     )
 }
 

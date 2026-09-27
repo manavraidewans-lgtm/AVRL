@@ -1,61 +1,48 @@
-import React from 'react'
 import BackgroundImage from "../../Assets/newsletter.png"
-import TittleName from '../TittleName'
-import Tittle from '../Tittle'
-import Description from '../Description'
-import Button from '../Button'
+import TittleName from "../TittleName"
+import Tittle from "../Tittle"
+import Description from "../Description"
+import Button from "../Button"
 
 const NewsLetter = () => {
     return (
-        <div className="mt-4.5 flex h-[40vh] w-full items-center justify-center">
-
+        <section className="mt-8 flex w-full justify-center px-4 sm:mt-10 sm:px-6 lg:mt-12">
             <div
-                className="relative flex h-[90%] w-[80%] items-center justify-between overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat"
-                style={{
-                    backgroundImage: `url(${BackgroundImage})`,
-                }}
+                className="relative flex min-h-[50vh] w-full max-w-6xl items-center overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat sm:min-h-[45vh] lg:h-[40vh]"
+                style={{ backgroundImage: `url(${BackgroundImage})` }}
             >
+                <div className="absolute inset-0 bg-black/20" />
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/15"></div>
+                <div className="relative z-10 flex w-full flex-col items-start gap-4 p-6 sm:p-8 md:w-[75%] lg:w-[65%] lg:pl-14 xl:pl-20">
 
-                {/* Main */}
-                <div className="relative z-10 flex h-full w-[60%] flex-col items-start justify-center gap-4 p-8 pl-25">
-
-                    <TittleName
-                        Tittle="STAY IN THE LOOP"
-                    />
+                    <TittleName Tittle="STAY IN THE LOOP" />
 
                     <Tittle
                         Heading="Join Our Newsletter"
+                        className="text-3xl sm:text-4xl md:text-5xl"
                     />
 
                     <Description
                         Des="Get exclusive offers, new arrivals and style inspiration straight to your inbox."
-                        
+                        className="max-w-xl text-sm sm:text-base"
                     />
 
-                    {/* Email */}
-                    <div className="flex w-full max-w-125 items-center gap-2 rounded-full bg-white p-1.5">
-
+                    <div className="flex w-full max-w-md items-center rounded-full bg-white p-1.5">
                         <input
                             type="email"
                             placeholder="Your email address"
-                            className="w-full bg-transparent px-4 py-2 text-sm outline-none"
+                            className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm outline-none sm:px-4"
                         />
 
                         <Button
                             Name="Subscribe"
                             Link="#"
                         />
-
                     </div>
 
                 </div>
-
             </div>
-
-        </div>
+        </section>
     )
 }
 

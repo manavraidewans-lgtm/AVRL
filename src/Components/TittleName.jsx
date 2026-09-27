@@ -1,10 +1,8 @@
-function TittleName ({Tittle}) {
+function TittleName({ Tittle }) {
     return (
-        <>
-            <h1 className="text-xl text-[#264930] font-semibold">
-                {Tittle}
-            </h1>
-        </>
+        <h1 className="text-base font-semibold text-[#264930] sm:text-lg lg:text-xl">
+            {Tittle}
+        </h1>
     )
 }
 

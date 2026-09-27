@@ -1,26 +1,26 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from "react-router-dom"
 
-import Navbar from './Components/Navbar'
+import Navbar from "./Components/Navbar"
 
-import Home from './Pages/Home'
-import About from './Pages/About'
-import Products from './Pages/Products'
-import Contact from './Pages/Contact'
-import Cart from './Pages/Cart'
-import Favourites from './Pages/Favourites'
-import Auth from './Pages/Auth'
-import PageTitle from './Components/PageTittle'
-import Footer from './Components/Footer'
+import Home from "./Pages/Home"
+import About from "./Pages/About"
+import Products from "./Pages/Products"
+import Contact from "./Pages/Contact"
+import Cart from "./Pages/Cart"
+import Favourites from "./Pages/Favourites"
+import Auth from "./Pages/Auth"
+import PageTitle from "./Components/PageTittle"
+import Footer from "./Components/Footer"
 
 function App() {
     return (
         <div className="min-h-screen w-full bg-[#f9f9f4]">
 
-            <PageTitle/>
+            <PageTitle />
 
             <Navbar />
 
-            <main>
+            <main className="min-w-0">
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
@@ -32,7 +32,7 @@ function App() {
                 </Routes>
             </main>
 
-            <Footer/>
+            <Footer />
 
         </div>
     )
