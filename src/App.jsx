@@ -10,6 +10,7 @@ import Cart from './Pages/Cart'
 import Favourites from './Pages/Favourites'
 import Auth from './Pages/Auth'
 import PageTitle from './Components/PageTittle'
+import Footer from './Components/Footer'
 
 function App() {
     return (
@@ -30,6 +31,8 @@ function App() {
                     <Route path="/auth" element={<Auth />} />
                 </Routes>
             </main>
+
+            <Footer/>
 
         </div>
     )
