@@ -32,6 +32,7 @@ const NewsLetter = () => {
 
                     <Description
                         Des="Get exclusive offers, new arrivals and style inspiration straight to your inbox."
+                        
                     />
 
                     {/* Email */}

@@ -1,10 +1,8 @@
-function Tittle({Heading}) {
+function Tittle({ Heading, className = "" }) {
     return (
-        <>
-            <h1 className="text-6xl text-[#152a23] font-bold">
-                {Heading}
-            </h1>
-        </>
+        <h1 className={`text-6xl font-bold text-[#152a23] ${className}`}>
+            {Heading}
+        </h1>
     )
 }
 

@@ -26,6 +26,7 @@ const LittleMore = () => {
                         
                         <Description
                             Des="Everyday clothing designed for comfort, confidence, and effortless style."
+                            
                         />
                       
 

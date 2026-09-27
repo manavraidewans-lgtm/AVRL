@@ -1,10 +1,8 @@
-function Description ({Des, ClassName= ""}) {
+function Description({ Des, className = "" }) {
     return (
-        <>
-            <p className="text-xl w-[60%] text-[#495f54] font-semibold" >
-                {Des}
-            </p>
-        </>
+        <p className={`text-xl w-[60%] text-[#495f54] font-semibold ${className}`}>
+            {Des}
+        </p>
     )
 }
 
