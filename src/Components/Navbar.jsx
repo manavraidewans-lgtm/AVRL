@@ -8,7 +8,7 @@ function Navbar() {
     return (
         <div className="flex h-full w-full items-center justify-center">
 
-            <div className="fixed bottom-0 z-50 flex h-16 w-full items-center justify-between bg-[#f7f9f4] px-3 md:top-0 md:bottom-auto md:mt-2 md:h-16 md:w-[90%] md:rounded-3xl md:bg-[#f7f9f4]/80 md:backdrop-blur-xl md:p-2">
+            <div className="fixed bottom-0 z-50 flex h-16 w-full items-center justify-between bg-[#e5ece0] px-3 md:top-0 md:bottom-auto md:mt-2 md:h-16 md:w-[90%] md:rounded-3xl md:bg-[#f7f9f4] md:backdrop-blur-xl md:p-2">
 
                 {/* Logo */}
                 <div className="order-1 flex h-full w-[25%] items-center justify-start md:w-[15%]">
