@@ -1,3 +1,4 @@
+import AboutNewsLetter from "../Components/About/AboutNewsLetter"
 import AboutHero from "../Components/About/Hero"
 import OurMission from "../Components/About/OurMission"
 import OurStory from "../Components/About/OurStory"
@@ -15,6 +16,8 @@ function About() {
             <OurStory/>
 
             <OurMission/>
+
+            <AboutNewsLetter/>
 
         </div>
     )
