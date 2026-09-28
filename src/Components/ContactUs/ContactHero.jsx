@@ -1,13 +1,13 @@
-import AboutHeroDesktop from "../../Assets/About-Hero-Desktop.png"
-import AboutHeroMobile from "../../Assets/About-Hero-Mobile.png"
-import Button from "../Button"
+import AboutHeroDesktop from "../../Assets/Contact-hero-desktop.png"
+import AboutHeroMobile from "../../Assets/Contact-Hero.png"
 
 import Description from "../Description"
 import Tittle from "../Tittle"
 import TittleName from "../TittleName"
+import ContactPolicyStack from "./ContactPolicyStack"
 
 
-function AboutHero() {
+function ContactHero() {
     return (
         <section className="w-full">
 
@@ -20,46 +20,43 @@ function AboutHero() {
 
                 <div className="flex flex-col gap-5 bg-[#f9faf7] p-5 sm:p-8 md:p-10">
                     <TittleName 
-                    Tittle="About Us" 
+                        Tittle="About Us" 
                     />
 
                     <Tittle 
-                    Heading="More Than Just Clothes, It's a Mindset." />
+                        Heading="More Than Just Clothes, It's a Mindset."
+                    />
 
                     <Description
                         Des="At Everop, we believe in more than just what you wear. We believe in the freedom to explore, the courage to be yourself, and the mindset to keep going no matter where life takes you."
                     />
 
-                    <Button
-                    Name="Shop Now" 
-                    Link="/products"
-                    />
+                    <ContactPolicyStack />
                 </div>
             </div>
 
             {/* Desktop */}
             <div
-                className="hidden h-[80vh] items-end bg-cover bg-center/40 bg-no-repeat lg:flex"
+                className="hidden min-h-[80vh] items-end bg-cover bg-center bg-no-repeat lg:flex"
                 style={{ backgroundImage: `url(${AboutHeroDesktop})` }}
             >
-                <div className="flex h-[80%] w-[55%] flex-col gap-7 p-8 xl:pl-20">
+                <div className="ml-auto flex h-[80%] w-[45%] flex-col justify-end gap-7 p-8 xl:p-20">
 
                     <TittleName 
-                    Tittle="About Us" 
+                        Tittle="Get In Touch " 
                     />
 
                     <Tittle 
-                    Heading="More Than Just Clothes, It's a Mindset." />
+                        Heading="We'd Love to Hear From You" 
+                    />
 
                     <Description
-                        Des="At Everop, we believe in more than just what you wear. We believe in the freedom to explore, the courage to be yourself, and the mindset to keep going no matter where life takes you."
+                        Des="Have a question, suggestion, or need assistance? 
+                        Our team is here to help. Reach out to us."
                     />
 
-                    <Button
-                    Name="Shop Now" 
-                    Link="/products"
-                    />
-                    
+                    <ContactPolicyStack />
+
                 </div>
             </div>
 
@@ -67,4 +64,4 @@ function AboutHero() {
     )
 }
 
-export default AboutHero
+export default ContactHero
