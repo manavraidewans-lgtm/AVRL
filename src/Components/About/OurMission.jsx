@@ -1,4 +1,4 @@
-import MissionImage from "../../Assets/mission.png"
+import MissionImage from "../../Assets/Contact-hero-desktop.png"
 import Description from "../Description"
 import Tittle from "../Tittle"
 import TittleName from "../TittleName"

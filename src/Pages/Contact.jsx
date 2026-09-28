@@ -1,3 +1,4 @@
+import ContactContent from "../Components/ContactUs/ContactContent"
 import ContactHero from "../Components/ContactUs/ContactHero"
 
 function Contact() {
@@ -5,6 +6,10 @@ function Contact() {
         <div className="w-full overflow-x-hidden pb-10 sm:pb-12 lg:pb-16 bg-[#f2f4ea]"> 
 
             <ContactHero/>
+
+            <ContactContent/>
+
+            
             
         </div>
     )
