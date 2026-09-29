@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 import Logo from "../Assets/Logo_2.png"
 import Auth from "../Pages/Auth"
 
 function Navbar() {
+
+    const navigate = useNavigate()
 
     const [menuOpen, setMenuOpen] = useState(false)
 
@@ -108,10 +110,14 @@ function Navbar() {
 
         setIsLoggedIn(false)
         setProfileOpen(false)
+        setMenuOpen(false)
 
         window.dispatchEvent(
             new Event("loginStatusChanged")
         )
+
+        // Go back to Home page
+        navigate("/")
     }
 
 
