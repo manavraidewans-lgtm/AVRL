@@ -1,22 +1,27 @@
-import { useEffect } from 'react'
+ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 function PageTitle() {
+
     const location = useLocation()
 
     useEffect(() => {
+
         const titles = {
-            '/': "Home",
+            '/': 'Home | EverOP',
             '/about': 'About | EverOP',
             '/products': 'Products | EverOP',
             '/contact': 'Contact Us | EverOP',
             '/cart': 'Cart | EverOP',
             '/favourites': 'Favourites | EverOP',
-            '/auth': 'Auth | EverOP',
+            '/profile': 'Profile | EverOP',
         }
 
-        document.title = titles[location.pathname]
+        document.title =
+            titles[location.pathname] || 'EverOP'
+
     }, [location.pathname])
+
 
     return null
 }
