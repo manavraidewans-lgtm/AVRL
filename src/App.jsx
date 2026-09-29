@@ -2,6 +2,9 @@ import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
 
 import Navbar from "./Components/Navbar"
+import Footer from "./Components/Footer"
+import SplashScreen from "./Components/SplashScreen"
+import PageTitle from "./Components/PageTittle"
 
 import Home from "./Pages/Home"
 import About from "./Pages/About"
@@ -11,9 +14,6 @@ import Cart from "./Pages/Cart"
 import Favourites from "./Pages/Favourites"
 import Profile from "./Pages/Profile"
 import Orders from "./Pages/Orders"
-import SplashScreen from "./Components/SplashScreen"
-import PageTitle from "./Components/PageTittle"
-import Footer from "./Components/Footer"
 
 function App() {
 
@@ -21,14 +21,12 @@ function App() {
 
     return (
         <>
-            {/* Cinematic Splash */}
             {showSplash && (
                 <SplashScreen
                     onComplete={() => setShowSplash(false)}
                 />
             )}
 
-            {/* Main Website */}
             <div className="min-h-screen w-full bg-[#f9f9f4]">
 
                 <PageTitle />
@@ -36,65 +34,20 @@ function App() {
                 <Navbar />
 
                 <main className="min-w-0">
-
                     <Routes>
 
-                        {/* Home */}
-                        <Route
-                            path="/"
-                            element={<Home />}
-                        />
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/products" element={<Products />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/favourites" element={<Favourites />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/orders" element={<Orders />} />
 
-                        {/* About */}
-                        <Route
-                            path="/about"
-                            element={<About />}
-                        />
-
-                        {/* Products */}
-                        <Route
-                            path="/products"
-                            element={<Products />}
-                        />
-
-                        {/* Contact */}
-                        <Route
-                            path="/contact"
-                            element={<Contact />}
-                        />
-
-                        {/* Cart */}
-                        <Route
-                            path="/cart"
-                            element={<Cart />}
-                        />
-
-                        {/* Favourites */}
-                        <Route
-                            path="/favourites"
-                            element={<Favourites />}
-                        />
-
-                        {/* Profile */}
-                        <Route
-                            path="/profile"
-                            element={<Profile />}
-                        />
-
-                        {/* Order*/}
-                        <Route
-                            path="/orders"
-                            element={<Orders />}
-                        />
-
-                        {/* Any unknown page → Home */}
-                        <Route
-                            path="*"
-                            element={<Home />}
-                        />
+                        <Route path="*" element={<Home />} />
 
                     </Routes>
-
                 </main>
 
                 <Footer />

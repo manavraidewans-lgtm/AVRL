@@ -8,24 +8,18 @@ function Navbar() {
 
     const navigate = useNavigate()
 
-    const [menuOpen, setMenuOpen] = useState(false)
+    const desktopProfileRef = useRef(null)
+    const mobileProfileRef = useRef(null)
 
+    const [menuOpen, setMenuOpen] = useState(false)
+    const [profileOpen, setProfileOpen] = useState(false)
+    const [authOpen, setAuthOpen] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(
         localStorage.getItem("isLoggedIn") === "true"
     )
 
-    const [authOpen, setAuthOpen] = useState(false)
 
-    const [profileOpen, setProfileOpen] = useState(false)
-
-    const desktopProfileRef = useRef(null)
-    const mobileProfileRef = useRef(null)
-
-
-    /* =========================================
-       LOGIN STATUS
-    ========================================= */
-
+    // Login status
     useEffect(() => {
 
         const checkLogin = () => {
@@ -34,75 +28,48 @@ function Navbar() {
             )
         }
 
-        window.addEventListener(
-            "loginStatusChanged",
-            checkLogin
-        )
-
-        window.addEventListener(
-            "storage",
-            checkLogin
-        )
+        window.addEventListener("loginStatusChanged", checkLogin)
+        window.addEventListener("storage", checkLogin)
 
         return () => {
-            window.removeEventListener(
-                "loginStatusChanged",
-                checkLogin
-            )
-
-            window.removeEventListener(
-                "storage",
-                checkLogin
-            )
+            window.removeEventListener("loginStatusChanged", checkLogin)
+            window.removeEventListener("storage", checkLogin)
         }
 
     }, [])
 
 
-    /* =========================================
-       CLOSE PROFILE DROPDOWN
-       WHEN CLICKING OUTSIDE
-    ========================================= */
-
+    // Close profile when clicking outside
     useEffect(() => {
 
-        const handleOutsideClick = (event) => {
+        const handleClick = (e) => {
 
-            const clickedDesktop =
-                desktopProfileRef.current?.contains(
-                    event.target
-                )
+            const desktop =
+                desktopProfileRef.current?.contains(e.target)
 
-            const clickedMobile =
-                mobileProfileRef.current?.contains(
-                    event.target
-                )
+            const mobile =
+                mobileProfileRef.current?.contains(e.target)
 
-            if (!clickedDesktop && !clickedMobile) {
+            if (!desktop && !mobile) {
                 setProfileOpen(false)
             }
         }
 
-        document.addEventListener(
-            "mousedown",
-            handleOutsideClick
-        )
+        document.addEventListener("mousedown", handleClick)
 
         return () => {
-            document.removeEventListener(
-                "mousedown",
-                handleOutsideClick
-            )
+            document.removeEventListener("mousedown", handleClick)
         }
 
     }, [])
 
 
-    /* =========================================
-       LOGOUT
-    ========================================= */
+    const closeMenu = () => {
+        setMenuOpen(false)
+    }
 
-    const handleLogout = () => {
+
+    const logout = () => {
 
         localStorage.removeItem("isLoggedIn")
         localStorage.removeItem("userName")
@@ -116,109 +83,116 @@ function Navbar() {
             new Event("loginStatusChanged")
         )
 
-        // Go back to Home page
         navigate("/")
     }
 
 
-    /* =========================================
-       CLOSE MOBILE MENU
-    ========================================= */
+    const navClass = ({ isActive }) =>
+        `transition ${
+            isActive
+                ? "text-[#1d3c2a]"
+                : "text-[#42514d] hover:text-[#1d3c2a]"
+        }`
 
-    const closeMenu = () => {
-        setMenuOpen(false)
-    }
+
+    // Profile dropdown
+    const ProfileMenu = ({ mobile = false }) => (
+
+        <div
+            className={`
+                absolute right-0 z-[100] w-52
+                rounded-2xl border border-[#dce3dc]
+                bg-[#f7f9f4] p-2 shadow-xl
+                ${mobile ? "bottom-12" : "top-12"}
+            `}
+        >
+
+            <NavLink
+                to="/profile"
+                onClick={() => setProfileOpen(false)}
+                className="
+                    flex items-center gap-3
+                    rounded-xl px-4 py-3
+                    text-sm font-semibold text-[#42514d]
+                    hover:bg-[#e5ece0]
+                "
+            >
+                <i className="ri-user-line text-lg" />
+                View Profile
+            </NavLink>
+
+
+            <NavLink
+                to="/orders"
+                onClick={() => setProfileOpen(false)}
+                className="
+                    flex items-center gap-3
+                    rounded-xl px-4 py-3
+                    text-sm font-semibold text-[#42514d]
+                    hover:bg-[#e5ece0]
+                "
+            >
+                <i className="ri-shopping-bag-3-line text-lg" />
+                My Orders
+            </NavLink>
+
+
+            <div className="my-1 h-px bg-[#dce3dc]" />
+
+
+            <button
+                onClick={logout}
+                className="
+                    flex w-full items-center gap-3
+                    rounded-xl px-4 py-3
+                    text-sm font-semibold text-red-600
+                    hover:bg-red-50
+                "
+            >
+                <i className="ri-logout-box-r-line text-lg" />
+                Log Out
+            </button>
+
+        </div>
+    )
 
 
     return (
         <>
-            {/* =====================================================
-                DESKTOP NAVBAR
-            ====================================================== */}
+            {/* ================= DESKTOP ================= */}
 
-            <nav
-                className="
-                    fixed left-1/2 top-4 z-50
-                    hidden w-[90%] -translate-x-1/2
-                    items-center justify-between
-                    rounded-3xl
-                    border border-white/20
-                    bg-white/70
-                    px-5 py-3
-                    shadow-lg
-                    backdrop-blur-3xl
-                    lg:flex
-                "
-            >
+            <nav className="
+                fixed left-1/2 top-4 z-50 hidden w-[90%]
+                -translate-x-1/2 items-center justify-between
+                rounded-3xl border border-white/20
+                bg-white/70 px-5 py-3
+                shadow-lg backdrop-blur-3xl lg:flex
+            ">
 
-                {/* LOGO */}
-
-                <NavLink
-                    to="/"
-                    className="flex items-center"
-                >
+                <NavLink to="/">
                     <img
                         src={Logo}
                         alt="EverOP"
-                        className="h-10 w-auto object-contain"
+                        className="h-10 w-auto"
                     />
                 </NavLink>
 
 
-                {/* DESKTOP LINKS */}
-
-                <div
-                    className="
-                        flex items-center
-                        gap-8
-                        font-Manrope
-                        text-sm
-                        font-semibold
-                        text-[#42514d]
-                    "
-                >
-
-                    <NavLink
-                        to="/about"
-                        className={({ isActive }) =>
-                            `transition-all duration-300 ${
-                                isActive
-                                    ? "text-[#1d3c2a]"
-                                    : "hover:text-[#1d3c2a]"
-                            }`
-                        }
-                    >
+                <div className="
+                    flex gap-8
+                    font-Manrope text-sm font-semibold
+                ">
+                    <NavLink to="/about" className={navClass}>
                         About
                     </NavLink>
 
-
-                    <NavLink
-                        to="/products"
-                        className={({ isActive }) =>
-                            `transition-all duration-300 ${
-                                isActive
-                                    ? "text-[#1d3c2a]"
-                                    : "hover:text-[#1d3c2a]"
-                            }`
-                        }
-                    >
+                    <NavLink to="/products" className={navClass}>
                         Products
                     </NavLink>
 
-
-                    <NavLink
-                        to="/contact"
-                        className={({ isActive }) =>
-                            `transition-all duration-300 ${
-                                isActive
-                                    ? "text-[#1d3c2a]"
-                                    : "hover:text-[#1d3c2a]"
-                            }`
-                        }
-                    >
+                    <NavLink to="/contact" className={navClass}>
                         Contact Us
                     </NavLink>
-
                 </div>
 
 
@@ -226,88 +200,57 @@ function Navbar() {
 
                 <div className="flex items-center gap-3">
 
-                    {/* CART */}
-
                     <NavLink
                         to="/cart"
                         className="
-                            flex h-10 w-10
-                            items-center justify-center
-                            rounded-full
+                            flex h-10 w-10 items-center
+                            justify-center rounded-full
                             text-[#42514d]
-                            transition-all duration-300
                             hover:bg-[#e5ece0]
-                            hover:text-[#1d3c2a]
                         "
                     >
-                        <i className="ri-shopping-cart-2-line text-xl"></i>
+                        <i className="ri-shopping-cart-2-line text-xl" />
                     </NavLink>
 
-
-                    {/* FAVOURITES */}
 
                     <NavLink
                         to="/favourites"
                         className="
-                            flex h-10 w-10
-                            items-center justify-center
-                            rounded-full
+                            flex h-10 w-10 items-center
+                            justify-center rounded-full
                             text-[#42514d]
-                            transition-all duration-300
                             hover:bg-[#e5ece0]
-                            hover:text-[#1d3c2a]
                         "
                     >
-                        <i className="ri-heart-3-line text-xl"></i>
+                        <i className="ri-heart-3-line text-xl" />
                     </NavLink>
 
 
-                    {/* =================================================
-                        LOGGED OUT
-                    ================================================= */}
-
-                    {!isLoggedIn && (
+                    {!isLoggedIn ? (
 
                         <button
-                            type="button"
                             onClick={() => setAuthOpen(true)}
                             className="
-                                rounded-full
+                                ml-2 rounded-full
                                 bg-[#1d3c2a]
                                 px-5 py-2.5
-                                font-Manrope
-                                text-sm
-                                font-semibold
-                                text-white
-                                transition-all duration-300
+                                text-sm font-semibold text-white
                                 hover:bg-[#102a20]
                             "
                         >
                             Login / Sign Up
                         </button>
 
-                    )}
-
-
-                    {/* =================================================
-                        LOGGED IN
-                    ================================================= */}
-
-                    {isLoggedIn && (
+                    ) : (
 
                         <div
                             ref={desktopProfileRef}
-                            className="relative"
+                            className="relative ml-1"
                         >
 
-                            {/* USER BUTTON */}
-
                             <button
-                                type="button"
                                 onClick={() =>
-                                    setProfileOpen(
-                                        (previous) => !previous
-                                    )
+                                    setProfileOpen(prev => !prev)
                                 }
                                 className="
                                     flex h-10 w-10
@@ -315,134 +258,15 @@ function Navbar() {
                                     rounded-full
                                     bg-[#e5ece0]
                                     text-[#1d3c2a]
-                                    transition-all duration-300
                                     hover:bg-[#ccd6cf]
                                 "
                             >
-                                <i className="ri-user-line text-xl"></i>
+                                <i className="ri-user-line text-xl" />
                             </button>
 
 
-                            {/* DROPDOWN */}
-
                             {profileOpen && (
-
-                                <div
-                                    className="
-                                        absolute right-0 top-12
-                                        z-[100]
-                                        w-56
-                                        overflow-hidden
-                                        rounded-2xl
-                                        border border-[#dce3dc]
-                                        bg-[#f7f9f4]
-                                        p-2
-                                        shadow-xl
-                                    "
-                                >
-
-                                    {/* VIEW PROFILE */}
-
-                                    <NavLink
-                                        to="/profile"
-                                        onClick={() =>
-                                            setProfileOpen(false)
-                                        }
-                                        className="
-                                            flex items-center
-                                            gap-3
-                                            rounded-xl
-                                            px-4 py-3
-                                            font-Manrope
-                                            text-sm
-                                            font-semibold
-                                            text-[#42514d]
-                                            transition-all duration-200
-                                            hover:bg-[#e5ece0]
-                                            hover:text-[#1d3c2a]
-                                        "
-                                    >
-
-                                        <i className="ri-user-line text-lg"></i>
-
-                                        <span>
-                                            View Profile
-                                        </span>
-
-                                    </NavLink>
-
-
-                                    {/* MY ORDERS */}
-
-                                    <NavLink
-                                        to="/orders"
-                                        onClick={() =>
-                                            setProfileOpen(false)
-                                        }
-                                        className="
-                                            flex items-center
-                                            gap-3
-                                            rounded-xl
-                                            px-4 py-3
-                                            font-Manrope
-                                            text-sm
-                                            font-semibold
-                                            text-[#42514d]
-                                            transition-all duration-200
-                                            hover:bg-[#e5ece0]
-                                            hover:text-[#1d3c2a]
-                                        "
-                                    >
-
-                                        <i className="ri-shopping-bag-3-line text-lg"></i>
-
-                                        <span>
-                                            My Orders
-                                        </span>
-
-                                    </NavLink>
-
-
-                                    {/* DIVIDER */}
-
-                                    <div
-                                        className="
-                                            my-1 h-px
-                                            bg-[#dce3dc]
-                                        "
-                                    />
-
-
-                                    {/* LOGOUT */}
-
-                                    <button
-                                        type="button"
-                                        onClick={handleLogout}
-                                        className="
-                                            flex w-full
-                                            items-center
-                                            gap-3
-                                            rounded-xl
-                                            px-4 py-3
-                                            font-Manrope
-                                            text-sm
-                                            font-semibold
-                                            text-red-600
-                                            transition-all duration-200
-                                            hover:bg-red-50
-                                        "
-                                    >
-
-                                        <i className="ri-logout-box-r-line text-lg"></i>
-
-                                        <span>
-                                            Log Out
-                                        </span>
-
-                                    </button>
-
-                                </div>
-
+                                <ProfileMenu />
                             )}
 
                         </div>
@@ -454,46 +278,30 @@ function Navbar() {
             </nav>
 
 
-            {/* =====================================================
-                MOBILE NAVBAR
-            ====================================================== */}
+            {/* ================= MOBILE ================= */}
 
-            <nav
-                className="
-                    fixed bottom-3 left-1/2
-                    z-50
-                    flex w-[94%]
-                    -translate-x-1/2
-                    items-center
-                    justify-between
-                    rounded-3xl
-                    border border-white/20
-                    bg-white/80
-                    px-4 py-3
-                    shadow-xl
-                    backdrop-blur-3xl
-                    lg:hidden
-                "
-            >
-
-                {/* LOGO */}
+            <nav className="
+                fixed bottom-3 left-1/2 z-50
+                flex w-[94%] -translate-x-1/2
+                items-center justify-between
+                rounded-3xl border border-white/20
+                bg-white/80 px-4 py-3
+                shadow-xl backdrop-blur-3xl lg:hidden
+            ">
 
                 <NavLink
                     to="/"
                     onClick={closeMenu}
-                    className="flex items-center"
                 >
                     <img
                         src={Logo}
                         alt="EverOP"
-                        className="h-9 w-auto object-contain"
+                        className="h-9 w-auto"
                     />
                 </NavLink>
 
 
-                {/* MOBILE RIGHT SIDE */}
-
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
 
                     {/* CART */}
 
@@ -503,13 +311,11 @@ function Navbar() {
                         className="
                             flex h-10 w-10
                             items-center justify-center
-                            rounded-full
-                            text-[#42514d]
-                            transition-all duration-300
+                            rounded-full text-[#42514d]
                             hover:bg-[#e5ece0]
                         "
                     >
-                        <i className="ri-shopping-cart-2-line text-xl"></i>
+                        <i className="ri-shopping-cart-2-line text-xl" />
                     </NavLink>
 
 
@@ -521,62 +327,40 @@ function Navbar() {
                         className="
                             flex h-10 w-10
                             items-center justify-center
-                            rounded-full
-                            text-[#42514d]
-                            transition-all duration-300
+                            rounded-full text-[#42514d]
                             hover:bg-[#e5ece0]
                         "
                     >
-                        <i className="ri-heart-3-line text-xl"></i>
+                        <i className="ri-heart-3-line text-xl" />
                     </NavLink>
 
 
-                    {/* =================================================
-                        MOBILE LOGGED OUT
-                    ================================================= */}
+                    {/* LOGIN / PROFILE */}
 
-                    {!isLoggedIn && (
+                    {!isLoggedIn ? (
 
                         <button
-                            type="button"
                             onClick={() => setAuthOpen(true)}
                             className="
-                                rounded-full
+                                ml-1 rounded-full
                                 bg-[#1d3c2a]
                                 px-4 py-2.5
-                                font-Manrope
-                                text-sm
-                                font-semibold
-                                text-white
-                                transition-all duration-300
-                                hover:bg-[#102a20]
+                                text-sm font-semibold text-white
                             "
                         >
                             Login
                         </button>
 
-                    )}
-
-
-                    {/* =================================================
-                        MOBILE LOGGED IN
-                    ================================================= */}
-
-                    {isLoggedIn && (
+                    ) : (
 
                         <div
                             ref={mobileProfileRef}
-                            className="relative"
+                            className="relative ml-1"
                         >
 
-                            {/* USER BUTTON */}
-
                             <button
-                                type="button"
                                 onClick={() =>
-                                    setProfileOpen(
-                                        (previous) => !previous
-                                    )
+                                    setProfileOpen(prev => !prev)
                                 }
                                 className="
                                     flex h-10 w-10
@@ -584,132 +368,15 @@ function Navbar() {
                                     rounded-full
                                     bg-[#e5ece0]
                                     text-[#1d3c2a]
-                                    transition-all duration-300
                                     hover:bg-[#ccd6cf]
                                 "
                             >
-                                <i className="ri-user-line text-xl"></i>
+                                <i className="ri-user-line text-xl" />
                             </button>
 
 
-                            {/* MOBILE DROPDOWN */}
-
                             {profileOpen && (
-
-                                <div
-                                    className="
-                                        absolute bottom-12 right-0
-                                        z-[100]
-                                        w-52
-                                        overflow-hidden
-                                        rounded-2xl
-                                        border border-[#dce3dc]
-                                        bg-[#f7f9f4]
-                                        p-2
-                                        shadow-xl
-                                    "
-                                >
-
-                                    {/* VIEW PROFILE */}
-
-                                    <NavLink
-                                        to="/profile"
-                                        onClick={() =>
-                                            setProfileOpen(false)
-                                        }
-                                        className="
-                                            flex items-center
-                                            gap-3
-                                            rounded-xl
-                                            px-4 py-3
-                                            font-Manrope
-                                            text-sm
-                                            font-semibold
-                                            text-[#42514d]
-                                            transition-all duration-200
-                                            hover:bg-[#e5ece0]
-                                        "
-                                    >
-
-                                        <i className="ri-user-line text-lg"></i>
-
-                                        <span>
-                                            View Profile
-                                        </span>
-
-                                    </NavLink>
-
-
-                                    {/* MY ORDERS */}
-
-                                    <NavLink
-                                        to="/orders"
-                                        onClick={() =>
-                                            setProfileOpen(false)
-                                        }
-                                        className="
-                                            flex items-center
-                                            gap-3
-                                            rounded-xl
-                                            px-4 py-3
-                                            font-Manrope
-                                            text-sm
-                                            font-semibold
-                                            text-[#42514d]
-                                            transition-all duration-200
-                                            hover:bg-[#e5ece0]
-                                        "
-                                    >
-
-                                        <i className="ri-shopping-bag-3-line text-lg"></i>
-
-                                        <span>
-                                            My Orders
-                                        </span>
-
-                                    </NavLink>
-
-
-                                    {/* DIVIDER */}
-
-                                    <div
-                                        className="
-                                            my-1 h-px
-                                            bg-[#dce3dc]
-                                        "
-                                    />
-
-
-                                    {/* LOGOUT */}
-
-                                    <button
-                                        type="button"
-                                        onClick={handleLogout}
-                                        className="
-                                            flex w-full
-                                            items-center
-                                            gap-3
-                                            rounded-xl
-                                            px-4 py-3
-                                            font-Manrope
-                                            text-sm
-                                            font-semibold
-                                            text-red-600
-                                            transition-all duration-200
-                                            hover:bg-red-50
-                                        "
-                                    >
-
-                                        <i className="ri-logout-box-r-line text-lg"></i>
-
-                                        <span>
-                                            Log Out
-                                        </span>
-
-                                    </button>
-
-                                </div>
-
+                                <ProfileMenu mobile />
                             )}
 
                         </div>
@@ -717,14 +384,11 @@ function Navbar() {
                     )}
 
 
-                    {/* HAMBURGER */}
+                    {/* MENU */}
 
                     <button
-                        type="button"
                         onClick={() =>
-                            setMenuOpen(
-                                (previous) => !previous
-                            )
+                            setMenuOpen(prev => !prev)
                         }
                         className="
                             flex h-10 w-10
@@ -732,10 +396,8 @@ function Navbar() {
                             rounded-full
                             bg-[#e5ece0]
                             text-[#1d3c2a]
-                            transition-all duration-300
                         "
                     >
-
                         <i
                             className={
                                 menuOpen
@@ -743,7 +405,6 @@ function Navbar() {
                                     : "ri-menu-line text-xl"
                             }
                         />
-
                     </button>
 
                 </div>
@@ -751,74 +412,54 @@ function Navbar() {
             </nav>
 
 
-            {/* =====================================================
-                MOBILE MENU
-            ====================================================== */}
+            {/* ================= MOBILE MENU ================= */}
 
             {menuOpen && (
 
-                <div
-                    className="
-                        fixed bottom-[5.5rem]
-                        left-1/2
-                        z-40
-                        w-[90%]
-                        -translate-x-1/2
-                        rounded-3xl
-                        border border-[#dce3dc]
-                        bg-[#f7f9f4]
-                        p-4
-                        shadow-xl
-                        lg:hidden
-                    "
-                >
+                <div className="
+                    fixed bottom-[5.5rem] left-1/2 z-40
+                    w-[90%] -translate-x-1/2
+                    rounded-3xl
+                    border border-[#dce3dc]
+                    bg-[#f7f9f4] p-4
+                    shadow-xl lg:hidden
+                ">
 
-                    <div
-                        className="
-                            flex flex-col gap-2
-                            font-Manrope
-                            font-semibold
-                        "
-                    >
+                    <div className="
+                        flex flex-col gap-1
+                        font-Manrope font-semibold
+                    ">
 
                         <NavLink
                             to="/about"
                             onClick={closeMenu}
                             className="
-                                rounded-2xl
-                                px-4 py-3
+                                rounded-2xl px-4 py-3
                                 text-[#42514d]
-                                transition-all
                                 hover:bg-[#e5ece0]
                             "
                         >
                             About
                         </NavLink>
 
-
                         <NavLink
                             to="/products"
                             onClick={closeMenu}
                             className="
-                                rounded-2xl
-                                px-4 py-3
+                                rounded-2xl px-4 py-3
                                 text-[#42514d]
-                                transition-all
                                 hover:bg-[#e5ece0]
                             "
                         >
                             Products
                         </NavLink>
 
-
                         <NavLink
                             to="/contact"
                             onClick={closeMenu}
                             className="
-                                rounded-2xl
-                                px-4 py-3
+                                rounded-2xl px-4 py-3
                                 text-[#42514d]
-                                transition-all
                                 hover:bg-[#e5ece0]
                             "
                         >
@@ -828,13 +469,10 @@ function Navbar() {
                     </div>
 
                 </div>
-
             )}
 
 
-            {/* =====================================================
-                AUTH MODAL
-            ====================================================== */}
+            {/* AUTH */}
 
             {authOpen && (
 

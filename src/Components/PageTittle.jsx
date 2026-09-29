@@ -8,13 +8,14 @@ function PageTitle() {
     useEffect(() => {
 
         const titles = {
-            '/': 'Home | EverOP',
-            '/about': 'About | EverOP',
-            '/products': 'Products | EverOP',
-            '/contact': 'Contact Us | EverOP',
-            '/cart': 'Cart | EverOP',
-            '/favourites': 'Favourites | EverOP',
-            '/profile': 'Profile | EverOP',
+            '/': 'EverOp India: Premium Clothinig for Men, Women and Kids. ',
+            '/about': 'EverOP: Get to know more about us.',
+            '/products': 'EverOP Products: Find Clothes Made For you.',
+            '/contact': 'EverOp: We are here to help you 24/7 .',
+            '/cart': 'EverOP: Your carts items are waiting for you.',
+            '/favourites': 'EverOp: Your Favourites are our valueables.',
+            '/profile': 'EverOP: Your Proile Section.',
+            '/orders': 'EverOP: Your orders are getting ready to be delivered.',
         }
 
         document.title =
