@@ -1,139 +1,48 @@
-import { useEffect, useRef, useState } from "react"
+import { useLayoutEffect, useRef } from "react"
 import gsap from "gsap"
-import BetterLookBetterDays from "../assets/Better-Look-Better-Days.png"
+import ShopImage from "../Assets/Splash-Screen.png"
 
-function SplashScreen({ children }) {
-    const [showSplash, setShowSplash] = useState(true)
-
+const SplashScreen = ({ onComplete }) => {
+    const containerRef = useRef(null)
     const imageRef = useRef(null)
-    const contentRef = useRef(null)
-    const dotsRef = useRef(null)
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowSplash(false)
-        }, 1500)
-
-        // Top-right image animation
-        gsap.fromTo(
-            imageRef.current,
-            {
-                x: 120,
-                y: -100,
-                opacity: 0,
-                rotation: 18,
-                scale: 0.7,
-            },
-            {
-                x: 0,
-                y: 0,
-                opacity: 1,
-                rotation: 0,
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.set(imageRef.current, {
                 scale: 1,
-                duration: 1.2,
-                ease: "power3.out",
-            }
-        )
+                transformOrigin: "50% 50%",
+            })
 
-        // Main content animation
-        gsap.fromTo(
-            contentRef.current,
-            {
-                opacity: 0,
-                y: 25,
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                delay: 0.25,
-                ease: "power2.out",
-            }
-        )
+            gsap.timeline({ onComplete })
+                .to(imageRef.current, {
+                    scale: 2.8,
+                    duration: 1.5,
+                    ease: "power3.in",
+                })
+                .to(containerRef.current, {
+                    opacity: 0,
+                    duration: 0.25,
+                    ease: "power2.out",
+                })
+        }, containerRef)
 
-        // Loading dots animation
-        gsap.fromTo(
-            dotsRef.current,
-            {
-                opacity: 0,
-                y: 10,
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                delay: 0.6,
-                ease: "power2.out",
-            }
-        )
-
-        return () => clearTimeout(timer)
-    }, [])
-
-    if (!showSplash) {
-        return children
-    }
+        return () => ctx.revert()
+    }, [onComplete])
 
     return (
-        <div className="fixed inset-0 z-12 flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#f9f9f4] px-6 text-[#073b2a]">
-
-            {/* Background shapes */}
-            <div className="absolute -left-24 -top-16 h-48 w-80 rotate-[-18deg] rounded-full bg-[#dfeee3] opacity-70" />
-
-            <div className="absolute -bottom-20 -right-24 h-56 w-96 rotate-[-20deg] rounded-full bg-[#dfeee3] opacity-70" />
-
-            {/* Top Right Image */}
+        <div
+            ref={containerRef}
+            className="fixed inset-0 z-999 h-dvh w-full overflow-hidden bg-[#f9f9f4]"
+        >
             <img
                 ref={imageRef}
-                src={BetterLookBetterDays}
-                alt="Better Look Better Days"
-                className="absolute right-8 top-15 w-26 object-contain sm:right-8 sm:top-8 sm:w-28 md:right-10 md:top-10 md:w-36 lg:right-12 lg:top-12 lg:w-40"
+                src={ShopImage}
+                alt="Every Opi Store"
+                className="h-full w-full object-cover object-center will-change-transform"
             />
-
-            {/* Main */}
-            <div
-                ref={contentRef}
-                className="relative flex flex-col items-center text-center"
-            >
-
-                <h1 className="text-5xl font-black tracking-[-0.07em] sm:text-6xl md:text-8xl">
-                    EVEROP
-                </h1>
-
-                <p className="mt-4 text-xs font-medium uppercase tracking-[0.3em] sm:text-sm md:text-base">
-                    Style moves with you
-                </p>
-
-                {/* Loading Dots */}
-                <div
-                    ref={dotsRef}
-                    className="mt-14 flex items-center gap-3"
-                >
-                    <span className="h-8.5 w-2.5 animate-bounce rounded-full bg-[#073b2a]" />
-
-                    <span
-                        className="h-8.5 w-2.5 animate-bounce rounded-full bg-[#8cae99]"
-                        style={{ animationDelay: "100ms" }}
-                    />
-
-                    <span
-                        className="h-8.5 w-2.5 animate-bounce rounded-full bg-[#8cae99]"
-                        style={{ animationDelay: "150ms" }}
-                    />
-
-                    <span
-                        className="h-8.5 w-2.5 animate-bounce rounded-full bg-[#8cae99]"
-                        style={{ animationDelay: "200ms" }}
-                    />
-                </div>
-
-                <p className="mt-4 text-xs tracking-wide text-[#557363] sm:text-sm">
-                    Getting things ready...
-                </p>
-
-            </div>
         </div>
     )
 }
 
 export default SplashScreen
+

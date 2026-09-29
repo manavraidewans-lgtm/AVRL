@@ -1,3 +1,5 @@
+
+import { useState } from "react"
 import { Routes, Route } from "react-router-dom"
 
 import Navbar from "./Components/Navbar"
@@ -13,11 +15,20 @@ import SplashScreen from "./Components/SplashScreen"
 import PageTitle from "./Components/PageTittle"
 import Footer from "./Components/Footer"
 
-
 function App() {
-    return (
-        <SplashScreen>
 
+    const [showSplash, setShowSplash] = useState(true)
+
+    return (
+        <>
+            {/* Cinematic Splash */}
+            {showSplash && (
+                <SplashScreen
+                    onComplete={() => setShowSplash(false)}
+                />
+            )}
+
+            {/* Main Website */}
             <div className="min-h-screen w-full bg-[#f9f9f4]">
 
                 <PageTitle />
@@ -25,31 +36,54 @@ function App() {
                 <Navbar />
 
                 <main className="min-w-0">
+
                     <Routes>
 
-                        <Route path="/" element={<Home />} />
+                        <Route
+                            path="/"
+                            element={<Home />}
+                        />
 
-                        <Route path="/about" element={<About />} />
+                        <Route
+                            path="/about"
+                            element={<About />}
+                        />
 
-                        <Route path="/products" element={<Products />} />
+                        <Route
+                            path="/products"
+                            element={<Products />}
+                        />
 
-                        <Route path="/contact" element={<Contact />} />
+                        <Route
+                            path="/contact"
+                            element={<Contact />}
+                        />
 
-                        <Route path="/cart" element={<Cart />} />
+                        <Route
+                            path="/cart"
+                            element={<Cart />}
+                        />
 
-                        <Route path="/favourites" element={<Favourites />} />
+                        <Route
+                            path="/favourites"
+                            element={<Favourites />}
+                        />
 
-                        <Route path="/auth" element={<Auth />} />
+                        <Route
+                            path="/auth"
+                            element={<Auth />}
+                        />
 
                     </Routes>
+
                 </main>
 
                 <Footer />
 
             </div>
-
-        </SplashScreen>
+        </>
     )
 }
 
 export default App
+
