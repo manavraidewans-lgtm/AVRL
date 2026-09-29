@@ -1,5 +1,7 @@
 import ContactContent from "../Components/ContactUs/ContactContent"
 import ContactHero from "../Components/ContactUs/ContactHero"
+import ContactMapOffice from "../Components/ContactUs/ContactMapOffice"
+import ContactNewsLetter from "../Components/ContactUs/ContactNewsLetter"
 
 function Contact() {
     return (
@@ -9,7 +11,9 @@ function Contact() {
 
             <ContactContent/>
 
+            <ContactMapOffice/>
             
+            <ContactNewsLetter/>
             
         </div>
     )

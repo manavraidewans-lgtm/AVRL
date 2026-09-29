@@ -37,7 +37,7 @@ const AboutNewsLetter = () => {
                     
                     <Description
                         Des="Follow our journey, get the latest drops, and never miss an update"
-                        className="mt-1 max-w-lg text-sm text-white/85 sm:text-base"
+                        className="mt-1 max-w-lg text-sm text-white/55 sm:text-base"
                     />
 
 
