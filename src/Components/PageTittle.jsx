@@ -1,5 +1,5 @@
- import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 function PageTitle() {
 
@@ -8,21 +8,40 @@ function PageTitle() {
     useEffect(() => {
 
         const titles = {
-            '/': 'EverOp India: Premium Clothinig for Men, Women and Kids. ',
-            '/about': 'EverOP: Get to know more about us.',
-            '/products': 'EverOP Products: Find Clothes Made For you.',
-            '/contact': 'EverOp: We are here to help you 24/7 .',
-            '/cart': 'EverOP: Your carts items are waiting for you.',
-            '/favourites': 'EverOp: Your Favourites are our valueables.',
-            '/profile': 'EverOP: Your Proile Section.',
-            '/orders': 'EverOP: Your orders are getting ready to be delivered.',
+
+            "/":
+                "EverOP India: Premium Clothing for Men, Women and Kids.",
+
+            "/about":
+                "EverOP: Get to Know More About Us.",
+
+            "/products":
+                "EverOP Products: Find Clothes Made for You.",
+
+            "/contact":
+                "EverOP: We Are Here to Help You 24/7.",
+
+            "/cart":
+                "EverOP: Your Cart Items Are Waiting for You.",
+
+            "/favourites":
+                "EverOP: Your Favourites Are Our Valuables.",
+
+            "/profile":
+                "EverOP: Your Profile Section.",
+
+            "/orders":
+                "EverOP: Your Orders Are Getting Ready to Be Delivered.",
+
+            "/auth":
+                "EverOP: Login or Create Your Account.",
+
         }
 
         document.title =
-            titles[location.pathname] || 'EverOP'
+            titles[location.pathname] || "EverOP"
 
     }, [location.pathname])
-
 
     return null
 }

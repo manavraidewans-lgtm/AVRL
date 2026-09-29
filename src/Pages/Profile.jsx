@@ -9,7 +9,7 @@ function Profile() {
         localStorage.getItem("userEmail") || "No email"
 
     return (
-        <section className="min-h-screen bg-[#f9f9f4] px-5 py-32 sm:px-8 lg:px-16">
+        <section className="w-full overflow-x-hidden pb-10 sm:pb-12 lg:pb-16 bg-[#f2f4ea] lg:pt-35">
 
             <div className="mx-auto w-full max-w-4xl">
 
