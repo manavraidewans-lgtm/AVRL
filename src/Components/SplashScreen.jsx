@@ -10,18 +10,18 @@ const SplashScreen = ({ onComplete }) => {
         const ctx = gsap.context(() => {
             gsap.set(imageRef.current, {
                 scale: 1,
-                transformOrigin: "50% 50%",
+                transformOrigin: "49% 51% ",
             })
 
             gsap.timeline({ onComplete })
                 .to(imageRef.current, {
-                    scale: 2.8,
-                    duration: 1.5,
+                    scale: 4.8,
+                    duration: 2,
                     ease: "power3.in",
                 })
                 .to(containerRef.current, {
                     opacity: 0,
-                    duration: 0.25,
+                    duration: 0,
                     ease: "power2.out",
                 })
         }, containerRef)
