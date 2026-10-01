@@ -1,82 +1,145 @@
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 
-import AllBanner2 from "../../Assets/All-Banner-5.avif"
-import MenBanner2 from "../../Assets/Men-banner-4.jpg"
-import WomenBanner2 from "../../Assets/Women-Banner-5.avif"
+import AllBanner1 from "../../Assets/All-Banner-1.avif"
+import AllBanner2 from "../../Assets/All-banner-2.jpg"
+import AllBanner3 from "../../Assets/All-banner-3.jpg"
+
+import MenBanner1 from "../../Assets/Men-banner-1.jpg"
+import MenBanner2 from "../../Assets/Men-banner-2.jpg"
+import MenBanner3 from "../../Assets/Men-banner-3.jpg"
+
+import WomenBanner1 from "../../Assets/Women-Banner-1.avif"
+import WomenBanner2 from "../../Assets/Women-Banner-2.avif"
+import WomenBanner3 from "../../Assets/Women-Banner-3.avif"
+import WomenBanner4 from "../../Assets/Women-Banner-4.avif"
 
 const ProductBanner = ({ category }) => {
 
-    const banners = {
+    const data = {
         All: {
-            Image: AllBanner2,
-            Tittle: "All Collection",
-            Description: "Explore everything EverOP has to offer.",
+            images: [AllBanner1, AllBanner2, AllBanner3],
+            title: "All Collection",
+            description: "Explore everything EverOP has to offer.",
         },
         Men: {
-            Image: MenBanner2,
-            Tittle: "Men's Collection",
-            Description: "Designed for everyday confidence.",
+            images: [MenBanner1, MenBanner2, MenBanner3],
+            title: "Men's Collection",
+            description: "Designed for everyday confidence.",
         },
         Women: {
-            Image: WomenBanner2,
-            Tittle: "Women's Collection",
-            Description: "Style made to move with you.",
-        }
+            images: [
+                WomenBanner1,
+                WomenBanner2,
+                WomenBanner3,
+                WomenBanner4,
+            ],
+            title: "Women's Collection",
+            description: "Style made to move with you.",
+        },
     }
 
-    const banner = banners[category] || banners.All
+    const banner = data[category] || data.All
+
+    const [current, setCurrent] = useState(0)
+    const startX = useRef(0)
+
+    useEffect(() => {
+        setCurrent(0)
+
+        const timer = setInterval(() => {
+            setCurrent((prev) => (prev + 1) % banner.images.length)
+        }, 4500)
+
+        return () => clearInterval(timer)
+    }, [category, banner.images.length])
+
+    const start = (e) => {
+        startX.current =
+            e.type === "touchstart"
+                ? e.touches[0].clientX
+                : e.clientX
+    }
+
+    const end = (e) => {
+        const endX =
+            e.type === "touchend"
+                ? e.changedTouches[0].clientX
+                : e.clientX
+
+        const distance = startX.current - endX
+
+        if (Math.abs(distance) < 50) return
+
+        setCurrent((prev) =>
+            distance > 0
+                ? (prev + 1) % banner.images.length
+                : (prev - 1 + banner.images.length) % banner.images.length
+        )
+    }
 
     return (
-        <section className="w-full">
+        <section>
 
-            {/* Mobile + Tablet */}
-            <div className="lg:hidden">
+            <div
+                className="relative h-[42vh] overflow-hidden select-none sm:h-[48vh] md:h-[52vh] lg:h-[80vh]"
+                onMouseDown={start}
+                onMouseUp={end}
+                onTouchStart={start}
+                onTouchEnd={end}
+            >
 
                 <div
-                    className="h-[42vh] bg-cover bg-center sm:h-[48vh] md:h-[52vh]"
-                    style={{ backgroundImage: `url(${banner.Image})` }}
-                />
+                    className="flex h-full transition-transform duration-1000 ease-out"
+                    style={{
+                        transform: `translateX(-${current * 100}%)`,
+                    }}
+                >
+                    {banner.images.map((image, index) => (
+                        <div
+                            key={index}
+                            className="h-full w-full shrink-0 bg-cover bg-center"
+                            style={{
+                                backgroundImage: `url(${image})`,
+                            }}
+                        />
+                    ))}
+                </div>
 
-                <div className="bg-[#f9faf7] p-6 sm:p-8">
-                    <p className="text-xs uppercase tracking-widest text-[#68766e]">
-                        EverOP
-                    </p>
+                {/* Desktop content */}
 
-                    <h1 className="mt-2 text-3xl font-bold text-[#152a23]">
-                        {banner.Tittle}
-                    </h1>
+                <div className="absolute inset-0 hidden items-end justify-center bg-black/20 pb-20 text-center lg:flex">
+                    <div className="text-white">
+                        <p className="text-xs uppercase tracking-[0.3em]">
+                            EverOP
+                        </p>
 
-                    <p className="mt-2 text-sm text-[#495f54] sm:text-base">
-                        {banner.Description}
-                    </p>
+                        <h1 className="mt-3 text-5xl font-semibold xl:text-6xl">
+                            {banner.title}
+                        </h1>
+
+                        <p className="mt-3 text-sm text-white/80">
+                            {banner.description}
+                        </p>
+                    </div>
                 </div>
 
             </div>
 
+            {/* Mobile + tablet content */}
 
-            {/* Desktop */}
-            <div
-                className="relative hidden h-[80vh] bg-cover bg-center lg:flex"
-                style={{ backgroundImage: `url(${banner.Image})` }}
-            >
+            <div className="bg-[#f9faf7] px-6 py-7 lg:hidden">
 
-                <div className="absolute inset-0 bg-black/25" />
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#68766e]">
+                    EverOP
+                </p>
 
-                <div className="relative z-10 flex w-full flex-col items-center justify-end pb-16 text-center">
+                <h1 className="mt-2 text-3xl font-semibold text-[#152a23]">
+                    {banner.title}
+                </h1>
 
-                    <p className="text-xs uppercase tracking-widest text-white/80">
-                        EverOP
-                    </p>
-
-                    <h1 className="mt-2 text-5xl font-semibold text-white">
-                        {banner.Tittle}
-                    </h1>
-
-                    <p className="mt-2 text-base text-white/80">
-                        {banner.Description}
-                    </p>
-
-                </div>
+                <p className="mt-2 text-sm text-[#495f54] sm:text-base">
+                    {banner.description}
+                </p>
 
             </div>
 
