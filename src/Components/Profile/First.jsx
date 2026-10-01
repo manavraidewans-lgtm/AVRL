@@ -60,33 +60,34 @@ const First = () => {
 
     return (
         <>
-            <div className="min-h-[30vh] w-full flex items-center justify-center p-3 sm:p-4 gap-4 md:h-[35vh] lg:h-[45vh]">
+            {/* Profile Section */}
+            <div className="flex min-h-[25vh] w-full items-center justify-center gap-4 p-3 sm:p-4 md:h-[28vh] lg:h-[32vh]">
 
                 {/* Profile */}
-                <div className="h-[90%] w-full md:w-[48%] lg:w-[45%] flex items-center justify-center gap-4 sm:gap-6">
+                <div className="flex h-full w-full items-center justify-center gap-4 md:w-[48%] md:justify-center sm:gap-6 lg:w-[45%]">
 
                     <img
                         src={photo}
                         alt="Profile"
-                        className="w-24 sm:w-28 md:w-32 lg:w-36 aspect-square rounded-full object-cover"
+                        className="aspect-square w-24 rounded-full object-cover sm:w-28 md:w-32 lg:w-36"
                     />
 
-                    <div className="flex flex-col gap-1 sm:gap-2">
+                    <div className="flex min-w-0 flex-col gap-1 sm:gap-2">
 
-                        <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#153b2f]">
+                        <h1 className="text-xl font-semibold text-[#153b2f] sm:text-2xl md:text-3xl">
                             Hello, {name}
                         </h1>
 
-                        <p className="text-xs sm:text-sm text-gray-500">
+                        <p className="truncate text-xs text-gray-500 sm:text-sm">
                             {email}
                         </p>
 
-                        <p className="flex items-center gap-1 text-xs sm:text-sm text-gray-500">
+                        <p className="flex items-center gap-1 text-xs text-gray-500 sm:text-sm">
                             <i className="ri-map-pin-line"></i>
                             {location}
                         </p>
 
-                        <p className="w-fit px-2 sm:px-3 py-1 rounded-full bg-green-100 text-xs text-[#153b2f]">
+                        <p className="w-fit rounded-full bg-green-100 px-2 py-1 text-xs text-[#153b2f] sm:px-3">
                             🌿 {tagline}
                         </p>
 
@@ -95,12 +96,12 @@ const First = () => {
                 </div>
 
 
-                {/* Edit */}
-                <div className="hidden md:flex h-[90%] w-[48%] lg:w-[45%] items-center justify-center">
+                {/* Edit Profile */}
+                <div className="hidden h-full w-[48%] items-center justify-center md:flex lg:w-[45%]">
 
                     <button
                         onClick={openEdit}
-                        className="px-5 py-2 rounded-full border border-[#153b2f] text-[#153b2f] cursor-pointer"
+                        className="cursor-pointer rounded-full border border-[#153b2f] px-5 py-2 text-[#153b2f] transition duration-300 hover:bg-[#153b2f] hover:text-white"
                     >
                         <i className="ri-settings-3-line mr-2"></i>
                         Edit Profile
@@ -111,13 +112,14 @@ const First = () => {
             </div>
 
 
-            {/* Modal */}
+            {/* Edit Profile Modal */}
             {edit && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-md">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4 backdrop-blur-md">
 
-                    <div className="w-full max-w-md bg-[#f5f4ef] rounded-3xl p-5">
+                    <div className="w-full max-w-md rounded-3xl bg-[#f5f4ef] p-5 shadow-xl sm:p-6">
 
-                        <div className="flex justify-between items-center mb-5">
+                        {/* Modal Header */}
+                        <div className="mb-5 flex items-center justify-between">
 
                             <h2 className="text-xl font-semibold text-[#153b2f]">
                                 Edit Profile
@@ -125,20 +127,21 @@ const First = () => {
 
                             <button
                                 onClick={() => setEdit(false)}
-                                className="text-2xl"
+                                className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-black/5"
                             >
-                                <i className="ri-close-line"></i>
+                                <i className="ri-close-line text-2xl"></i>
                             </button>
 
                         </div>
 
 
                         {/* Photo */}
-                        <div className="flex flex-col items-center mb-5">
+                        <div className="mb-5 flex flex-col items-center">
 
                             <img
                                 src={newPhoto}
-                                className="w-24 h-24 rounded-full object-cover"
+                                alt="Profile Preview"
+                                className="h-24 w-24 rounded-full object-cover"
                             />
 
                             <input
@@ -151,7 +154,7 @@ const First = () => {
 
                             <button
                                 onClick={() => file.current.click()}
-                                className="mt-2 text-sm text-[#153b2f]"
+                                className="mt-2 text-sm text-[#153b2f] transition hover:underline"
                             >
                                 <i className="ri-camera-line mr-1"></i>
                                 Change Photo
@@ -162,46 +165,50 @@ const First = () => {
 
                         {/* Name */}
                         <input
+                            type="text"
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}
                             placeholder="Name"
-                            className="w-full p-3 mb-3 rounded-xl border border-gray-300 outline-none"
+                            className="mb-3 w-full rounded-xl border border-gray-300 bg-transparent p-3 outline-none transition focus:border-[#153b2f]"
                         />
 
 
                         {/* Email */}
                         <input
+                            type="email"
                             value={newEmail}
                             onChange={(e) => setNewEmail(e.target.value)}
                             placeholder="Email"
-                            className="w-full p-3 mb-3 rounded-xl border border-gray-300 outline-none"
+                            className="mb-3 w-full rounded-xl border border-gray-300 bg-transparent p-3 outline-none transition focus:border-[#153b2f]"
                         />
 
 
                         {/* Location */}
                         <input
+                            type="text"
                             value={newLocation}
                             onChange={(e) => setNewLocation(e.target.value)}
                             placeholder="Location"
-                            className="w-full p-3 mb-3 rounded-xl border border-gray-300 outline-none"
+                            className="mb-3 w-full rounded-xl border border-gray-300 bg-transparent p-3 outline-none transition focus:border-[#153b2f]"
                         />
 
 
                         {/* Tagline */}
                         <input
+                            type="text"
                             value={newTagline}
                             onChange={(e) => setNewTagline(e.target.value)}
                             placeholder="Bio / Tagline"
-                            className="w-full p-3 rounded-xl border border-gray-300 outline-none"
+                            className="w-full rounded-xl border border-gray-300 bg-transparent p-3 outline-none transition focus:border-[#153b2f]"
                         />
 
 
                         {/* Buttons */}
-                        <div className="flex gap-3 mt-5">
+                        <div className="mt-5 flex gap-3">
 
                             <button
                                 onClick={() => setEdit(false)}
-                                className="w-1/2 py-3 rounded-xl border border-gray-300"
+                                className="w-1/2 rounded-xl border border-gray-300 py-3 transition hover:bg-gray-100"
                             >
                                 Cancel
                             </button>
@@ -209,7 +216,7 @@ const First = () => {
                             <button
                                 onClick={save}
                                 disabled={saving}
-                                className="w-1/2 py-3 rounded-xl bg-[#153b2f] text-white"
+                                className="w-1/2 rounded-xl bg-[#153b2f] py-3 text-white transition hover:bg-[#102a20] disabled:cursor-not-allowed disabled:opacity-70"
                             >
                                 {saving ? "Saving..." : "Save Changes"}
                             </button>
@@ -222,15 +229,15 @@ const First = () => {
             )}
 
 
-            {/* Updated */}
+            {/* Profile Updated */}
             {updated && (
-                <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/20">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/20 backdrop-blur-sm">
 
-                    <div className="bg-[#f5f4ef] p-6 rounded-3xl text-center">
+                    <div className="rounded-3xl bg-[#f5f4ef] p-6 text-center shadow-xl">
 
                         <i className="ri-checkbox-circle-line text-4xl text-green-700"></i>
 
-                        <p className="mt-2 font-semibold">
+                        <p className="mt-2 font-semibold text-[#153b2f]">
                             Profile Updated
                         </p>
 

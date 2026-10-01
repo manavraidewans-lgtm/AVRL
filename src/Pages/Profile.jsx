@@ -1,6 +1,7 @@
 import React from "react"
 import MobileTop from "../Components/Profile/MobileTop"
 import First from "../Components/Profile/First"
+import Second from "../Components/Profile/Second"
 
 function Profile() {
 
@@ -16,6 +17,8 @@ function Profile() {
             <MobileTop/>
 
             <First/>
+
+            <Second/>
 
         </section>
     )
