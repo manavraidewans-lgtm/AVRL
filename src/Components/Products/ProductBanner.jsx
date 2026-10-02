@@ -48,7 +48,7 @@ const ProductBanner = ({ category }) => {
 
         const timer = setInterval(() => {
             setCurrent((prev) => (prev + 1) % banner.images.length)
-        }, 4500)
+        }, 3000)
 
         return () => clearInterval(timer)
     }, [category, banner.images.length])
