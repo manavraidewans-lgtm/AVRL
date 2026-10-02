@@ -16,7 +16,6 @@ import Nike from "../../Assets/nike.svg"
 const Brands = () => {
 
     const sliderRef = useRef(null)
-    const animationRef = useRef(null)
 
     const brands = [
         Adidas,
@@ -34,7 +33,7 @@ const Brands = () => {
 
     useEffect(() => {
 
-        animationRef.current = gsap.to(sliderRef.current, {
+        gsap.to(sliderRef.current, {
             xPercent: -50,
             duration: 30,
             ease: "none",
@@ -43,18 +42,9 @@ const Brands = () => {
 
     }, [])
 
-    const pauseAnimation = () => {
-        animationRef.current?.pause()
-    }
-
-    const resumeAnimation = () => {
-        animationRef.current?.resume()
-    }
-
     return (
         <section className="mt-10 w-full overflow-hidden md:mt-14 lg:mt-16">
 
-            {/* Heading */}
             <div className="px-5 sm:px-8 lg:px-12">
 
                 <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.3em] text-[#68766e] sm:text-xs">
@@ -67,20 +57,14 @@ const Brands = () => {
 
             </div>
 
-            {/* Brand Slider */}
-            <div
-                className="mt-3 p-4 md:mt-8 md:p-6 w-full overflow-hidden border-y border-[#e1e5df] "
-                onMouseEnter={pauseAnimation}
-                onMouseLeave={resumeAnimation}
-            >
+            <div className="mt-3 w-full overflow-hidden border-y border-[#e1e5df] p-4 md:mt-8 md:p-6">
 
                 <div
                     ref={sliderRef}
                     className="flex w-max"
                 >
 
-                    {/* First Set */}
-                    <div className="flex shrink-0 items-center px-10 gap-2 md:gap-6 md:px-12 lg:gap-18">
+                    <div className="flex shrink-0 items-center gap-2 px-10 md:gap-6 md:px-12 lg:gap-18">
 
                         {brands.map((brand, index) => (
                             <div
@@ -90,15 +74,14 @@ const Brands = () => {
                                 <img
                                     src={brand}
                                     alt="Brand"
-                                    className="h-full w-full object-contain opacity-70 transition duration-300 hover:scale-105 hover:opacity-100"
+                                    className="h-full w-full object-contain opacity-70"
                                 />
                             </div>
                         ))}
 
                     </div>
 
-                    {/* Second Set */}
-                    <div className="flex shrink-0 items-center px-10 gap-2 md:gap-6 md:px-12 lg:gap-18 ">
+                    <div className="flex shrink-0 items-center gap-2 px-10 md:gap-6 md:px-12 lg:gap-18">
 
                         {brands.map((brand, index) => (
                             <div
@@ -108,7 +91,7 @@ const Brands = () => {
                                 <img
                                     src={brand}
                                     alt="Brand"
-                                    className="h-full w-full object-contain opacity-70 transition duration-300 hover:scale-105 hover:opacity-100"
+                                    className="h-full w-full object-contain opacity-70"
                                 />
                             </div>
                         ))}
